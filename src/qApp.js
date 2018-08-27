@@ -9,7 +9,7 @@ const loadCapabilityApis = async (config) => {
     }
     const capabilityApisJS = document.createElement('script');
     const prefix = (config.prefix !== '') ? `/${config.prefix}` : '';
-    capabilityApisJS.src = `${(config.secure ? 'https://' : 'http://') + config.host + (config.port ? `:${config.port}` : '') + prefix}/resources/assets/external/requirejs/require.js`;
+    capabilityApisJS.src = `${(config.secure ? 'https://' : 'http://') + config.host + (config.port ? `:${config.port}` : '') + prefix}/resources/assets/external/requirejs/require.js?${config.ticket}`;
     document.head.appendChild(capabilityApisJS);
     capabilityApisJS.loaded = new Promise((resolve) => {
       capabilityApisJS.onload = () => { resolve(); };
