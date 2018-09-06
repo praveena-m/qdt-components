@@ -83,6 +83,8 @@ export default class QdtViz extends React.Component {
       const qViz = await this.qVizPromise;
       if (qViz) {
         await this.setState({ loading: false });
+
+        debugger;
         qViz.show(this.node, { noSelections: this.props.noSelections });
       } else {
         throw new Error('Please specify a qConfig global variable');
