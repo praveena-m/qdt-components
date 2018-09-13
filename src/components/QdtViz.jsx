@@ -78,13 +78,29 @@ export default class QdtViz extends React.Component {
     }
   }
 
+  addScrollListener(nodeToLiten) {
+    if (nodeToLiten && nodeToLiten[0] && nodeToLiten[0].parentNode) {
+      nodeToLiten[0].addEventListener('wheel', (event) => {
+        // only vertical scroll
+        if (event.deltaY > 0) {
+          event.preventDefault();
+          document.documentElement.scrollTop += 100;
+        }
+      });
+    }
+  }
+
   async show() {
     try {
       const qViz = await this.qVizPromise;
       if (qViz) {
         await this.setState({ loading: false });
-
         qViz.show(this.node, { noSelections: this.props.noSelections });
+        setTimeout(() => {
+          this.addScrollListener(this.node.querySelectorAll("div.qv-chart-component.qv-layout-medium[tcl='combo-area']"));
+          this.addScrollListener(this.node.querySelectorAll("article[tid='qv-object-waterfallchart'] div.qv-object-content.ng-isolate-scope"));
+          this.addScrollListener(this.node.querySelectorAll('div.qv-grid-object-scroll-area'));
+        }, 2000, this.node, this.addScrollListener);
       } else {
         throw new Error('Please specify a qConfig global variable');
       }
@@ -114,15 +130,15 @@ export default class QdtViz extends React.Component {
     if (this.state.error) {
       return <div>{this.state.error.message}</div>;
     } else if (this.state.loading) {
-    //   return <div>Loading...</div>;
+      //   return <div>Loading...</div>;
       const paddingTop = (parseInt(height, 0)) ? (height / 2) - 10 : 0;
       return <Preloader width={width} height={height} paddingTop={paddingTop} />;
     }
     return (<div
       ref={(node) => { this.node = node; }}
       style={{
- width, height, minWidth, minHeight,
-}}
+        width, height, minWidth, minHeight,
+      }}
     />);
   }
 }
