@@ -78,11 +78,9 @@ export default class QdtViz extends React.Component {
     }
   }
 
-  addScrollListener(nodeToLiten) {
-    if (nodeToLiten && nodeToLiten[0] && nodeToLiten[0].parentNode) {
-      nodeToLiten[0].addEventListener('wheel', (event) => {
-        console.log('wheel event');
-        // only vertical scroll
+  addScrollListener(nodeToListen) {
+    if (nodeToListen && nodeToListen[0] && nodeToListen[0].parentNode) {
+      nodeToListen[0].addEventListener('wheel', (event) => {
         if (event.deltaY > 0) {
           event.preventDefault();
           document.documentElement.scrollTop += 100;
@@ -98,7 +96,6 @@ export default class QdtViz extends React.Component {
         await this.setState({ loading: false });
         qViz.show(this.node, { noSelections: this.props.noSelections });
         setTimeout(() => {
-          console.log('setTimeout event');
           this.addScrollListener(this.node.querySelectorAll("div.qv-chart-component.qv-layout-medium[tcl='combo-area']"));
           this.addScrollListener(this.node.querySelectorAll("article[tid='qv-object-waterfallchart'] div.qv-object-content.ng-isolate-scope"));
           this.addScrollListener(this.node.querySelectorAll('div.qv-grid-object-scroll-area'));
