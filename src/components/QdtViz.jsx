@@ -98,8 +98,8 @@ export default class QdtViz extends React.Component {
         setTimeout(() => {
           this.addScrollListener(this.node.querySelectorAll("div.qv-chart-component.qv-layout-medium[tcl='combo-area']"));
           this.addScrollListener(this.node.querySelectorAll("article[tid='qv-object-waterfallchart'] div.qv-object-content.ng-isolate-scope"));
-          this.addScrollListener(this.node.querySelectorAll('div.qv-grid-object-scroll-area'));
-        }, 2000, this.node, this.addScrollListener);
+          // this.addScrollListener(this.node.querySelectorAll('div.qv-grid-object-scroll-area'));
+        }, 2200, this.node, this.addScrollListener);
       } else {
         throw new Error('Please specify a qConfig global variable');
       }
